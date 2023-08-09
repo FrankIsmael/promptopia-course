@@ -14,7 +14,7 @@ import {
 import { BuiltInProviderType } from 'next-auth/providers/index';
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
@@ -45,7 +45,7 @@ const Nav = () => {
 
       {/* Desktop navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Prompt
@@ -60,7 +60,7 @@ const Nav = () => {
             <Link href="/profile">
               <Image
                 alt="Profile"
-                src="/assets/images/logo.svg"
+                src={session?.user?.image}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -85,7 +85,7 @@ const Nav = () => {
       </div>
       {/* mobile navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               alt="Profile"
