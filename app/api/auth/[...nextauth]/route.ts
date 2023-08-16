@@ -12,7 +12,7 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ profile }) {
+    async signIn({ profile }) { // profile is the user object returned by the provider
       try {
         await connectToDB();
 
