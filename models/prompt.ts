@@ -1,6 +1,14 @@
-import { Schema, model, models } from 'mongoose';
+import { Model, Schema, Types, model, models } from 'mongoose';
+import { UserDocument } from './user';
 
-const promptSchema = new Schema({
+export interface IPrompt {
+  _id: Types.ObjectId;
+  creator: UserDocument;
+  prompt: string;
+  tag: string;
+}
+
+const promptSchema = new Schema<IPrompt>({
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -17,6 +25,6 @@ const promptSchema = new Schema({
 
 // on nextjs we need to check if the model is already defined
 // because this route is called every time the connection is stablished
-const Prompt = models.Prompt || model('Prompt', promptSchema);
+const Prompt = models.Prompt as Model<IPrompt> || model<IPrompt>('Prompt', promptSchema);
 
 export default Prompt;

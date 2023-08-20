@@ -1,5 +1,13 @@
 import { Schema, model, models } from 'mongoose';
 
+interface IUser {
+  email: string;
+  username: string;
+  image: string;
+}
+
+export type UserDocument = IUser & Document;
+
 const userSchema = new Schema({
   email: {
     type: String,
@@ -22,5 +30,7 @@ const userSchema = new Schema({
 // on nextjs we need to check if the model is already defined
 // because this route is called every time the connection is stablished
 const User = models.User ||  model('User', userSchema);
+
+
 
 export default User;
