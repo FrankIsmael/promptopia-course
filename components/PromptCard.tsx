@@ -4,12 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { IPrompt } from '@models/prompt';
+import { useSession } from 'next-auth/react';
 
 interface PromptCardProps {
   prompt: IPrompt;
   handleTagClick: (tag: string) => void;
-  handleEdit: (id: string) => void;
-  handleDelete: (id: string) => void;
+  handleEdit: () => void;
+  handleDelete: () => void;
 }
 
 const PromptCard = ({
@@ -19,6 +20,9 @@ const PromptCard = ({
   handleDelete,
 }: PromptCardProps) => {
   const [copied, setcopied] = useState('');
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleCopy = () => {
     setcopied(prompt._id.toString());
@@ -67,6 +71,23 @@ const PromptCard = ({
       >
         {prompt.tag}
       </p>
+      {session?.user.id === prompt.creator._id.toString() &&
+        pathname === '/profile' && (
+          <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+            <p
+              className="font-inter text-sm green_gradient cursor-pointer"
+              onClick={handleEdit}
+            >
+              Edit
+            </p>
+            <p
+              className="font-inter text-sm orange_gradient cursor-pointer"
+              onClick={handleDelete}
+            >
+              Delete
+            </p>
+          </div>
+        )}
     </div>
   );
 };

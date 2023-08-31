@@ -75,9 +75,16 @@ const Nav = () => {
                   type="button"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                  className="black_btn"
+                  className="black_btn mr-2"
                 >
-                  Sign In
+                  {provider.name}{' '}
+                  <Image
+                    alt="Provider Logo"
+                    src="/assets/icons/login.svg"
+                    className='ml-2'
+                    width={25}
+                    height={25}
+                  />
                 </button>
               ))}
           </>

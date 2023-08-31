@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import GithubProvider from 'next-auth/providers/github';
 
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
@@ -10,9 +11,14 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
   ],
   callbacks: {
-    async signIn({ profile }) { // profile is the user object returned by the provider
+    async signIn({ profile }) {
+      // profile is the user object returned by the provider
       try {
         await connectToDB();
 
