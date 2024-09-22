@@ -9,6 +9,7 @@ export const metadata = {
 };
 
 function RootLayout({ children }: { children: React.ReactNode }) {
+  console.log("Env Var:", process.env.ENV_VAR);
   return (
     <html lang="en">
       <body>
