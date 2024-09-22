@@ -5,7 +5,7 @@ import Provider from '@components/Provider';
 
 export const metadata = {
   title: 'Promptopia',
-  description: 'Discover & Share AI Prompts',
+  description: 'Discover & Share AI Prompts 🚀🤖',
 };
 
 function RootLayout({ children }: { children: React.ReactNode }) {
